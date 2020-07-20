@@ -14,29 +14,47 @@ class Scraper
     students = []
     doc.css(".student-card").each{ |student_card|
       student = Hash[ "name" => student_card.css("h4").text,
-                      "location" => student.css("p").text,
-                      "profile_url" => index_url["index.html"]= student.css("a").attribute("href").value
+                      "location" => student_card.css("p").text,
+                      "profile_url" => student_card.css("a").attribute("href").value
                     ]
                     students << student
-      # student = Student.new
-      # student.name = student_card.css("h4").text
-      # student.location = student_card.css("").text
-      # student.twitter = student_card.css("").text
-      # student.linkedin = student_card.css("").text
-      # student.github = student_card.css("").text
-      # student.blog = student_card.css("").text
-      # student.profile_quote = student_card.css("").text
-      # student.bio = student_card.css("").text
-      # student.profile_url = student_card.css("").text
-
-    }
+                    }
     return students
 
 
   end
 
-  def self.scrape_profile_page(profile_url)
+# twitter: doc.css(".social-icon-container a").first.attribute("href").value
+# linkedin: 
 
+  def self.scrape_profile_page(profile_url)
+doc = Nokogiri::HTML(open(profile_url))
+profile = {}
+doc.css(".social-icon-container a").each{|link| 
+    if link.attribute("href").value.include?("twitter")
+      profile[:twitter] = doc.css(".social-icon-container a").first.attribute("href").value
+    end
+
+    if link.attribute("href").value.include?("linkedin")
+      profile[:linkedin] = doc.css(".social-icon-container a").first.attribute("href").value
+    end
+      
+    if link.attribute("href").value.include?("github")
+      profile[:github] = doc.css(".social-icon-container a").first.attribute("href").value
+    end
+        
+    if link.attribute("href").value.include?("blog")
+      profile[:blog] = doc.css(".social-icon-container a").first.attribute("href").value
+    end
+    }
+
+    profile[:profile_quote] = doc.css(".profile-quote").text
+
+    profile[:bio] = doc.css(".description-holder p").text
+    
+profile = Hash["twitter" => doc.css(".social-icon-container a").first.attribute("href").value,
+                "linkedin" => ]
+  doc.css()
   end
 
 end
