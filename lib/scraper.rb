@@ -10,7 +10,7 @@ class Scraper
 
   def self.scrape_index_page(index_url)
     doc = Nokogiri::HTML(open(index_url))
-    binding.pry
+
     students = []
     doc.css(".student-card").each{ |student_card|
       student = Hash[ "name" => student_card.css("h4").text,
