@@ -28,11 +28,11 @@ class Scraper
       # student.profile_quote = student_card.css("").text
       # student.bio = student_card.css("").text
       # student.profile_url = student_card.css("").text
-      
+
     }
     return students
 
-    
+
   end
 
   def self.scrape_profile_page(profile_url)
