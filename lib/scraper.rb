@@ -25,12 +25,12 @@ class Scraper
   end
 
 # twitter: doc.css(".social-icon-container a").first.attribute("href").value
-# linkedin: 
+# linkedin:
 
   def self.scrape_profile_page(profile_url)
 doc = Nokogiri::HTML(open(profile_url))
 profile = {}
-doc.css(".social-icon-container a").each{|link| 
+doc.css(".social-icon-container a").each{|link|
     if link.attribute("href").value.include?("twitter")
       profile[:twitter] = doc.css(".social-icon-container a").first.attribute("href").value
     end
@@ -38,11 +38,11 @@ doc.css(".social-icon-container a").each{|link|
     if link.attribute("href").value.include?("linkedin")
       profile[:linkedin] = doc.css(".social-icon-container a").first.attribute("href").value
     end
-      
+
     if link.attribute("href").value.include?("github")
       profile[:github] = doc.css(".social-icon-container a").first.attribute("href").value
     end
-        
+
     if link.attribute("href").value.include?("blog")
       profile[:blog] = doc.css(".social-icon-container a").first.attribute("href").value
     end
@@ -51,7 +51,7 @@ doc.css(".social-icon-container a").each{|link|
     profile[:profile_quote] = doc.css(".profile-quote").text
 
     profile[:bio] = doc.css(".description-holder p").text
-    
+
 profile = Hash["twitter" => doc.css(".social-icon-container a").first.attribute("href").value,
                 "linkedin" => ]
   doc.css()
